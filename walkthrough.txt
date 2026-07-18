@@ -1,0 +1,49 @@
+To run this project, you need to start both the Python Flask backend and the Vanilla web frontend. Here is a walkthrough of how to set up and run the entire application.
+
+1. Set up the Backend (Flask API)
+First, open your terminal (PowerShell or Command Prompt) and ensure you are in the project root directory (c:\Users\Akash\Downloads\ecommerce-api).
+
+Create and activate a virtual environment:
+
+bash
+python -m venv venv
+venv\Scripts\activate
+Install dependencies:
+
+bash
+pip install -r requirements.txt
+Set up your environment variables: Copy the example environment file to create a real one.
+
+bash
+cp .env.example .env
+(Optional: Open .env and add your Stripe test secret key if you want to test payments).
+
+Seed the Database: This will initialize the SQLite database, create an admin user (admin@example.com / admin123), and populate it with some sample products.
+
+bash
+python seed.py
+Run the Backend Server:
+
+bash
+python run.py
+Your backend API will now be running on http://localhost:5000.
+
+2. Set up the Frontend (Web UI)
+You'll need a second terminal to serve the frontend, as your first terminal is busy running the Flask server. Open a new terminal window, navigate back to your project root (c:\Users\Akash\Downloads\ecommerce-api), and run the following command:
+
+bash
+python -m http.server 8000 -d frontend
+3. Experience the App (Walkthrough)
+Now that both servers are running, open your web browser and go to http://localhost:8000.
+
+Here's a walkthrough of what you can do:
+
+Explore the UI: The frontend is a modern, responsive Single Page Application (SPA) with a dark-mode aesthetic, utilizing glassmorphism and smooth animations.
+Authentication: Click the login/signup buttons to create an account. The frontend securely communicates with the Flask backend using JWT tokens (saved in your browser's local storage).
+Browse Products: You can see the sample products that were added when you seeded the database. You can filter them by category or search.
+Shopping Cart: Add products to your cart. An off-canvas sidebar will appear.
+Checkout: Click checkout to test the order flow! (It will decrement stock and attempt to create a Stripe PaymentIntent in the backend).
+Admin Access: The API has specific routes (e.g., adding products or viewing low stock) that require Admin permissions. You can log into the frontend using the seeded admin credentials:
+
+Email: admin@example.com
+Password: admin123

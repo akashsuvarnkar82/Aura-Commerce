@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Store | Premium E-Commerce</title>
+    <meta name="description" content="Discover premium products at Aura Store – the ultimate destination for audio, tech, gaming, lifestyle and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-mode">
+
+    <!-- Navbar -->
+    <nav class="navbar glass" id="mainNavbar">
+        <div class="nav-brand">
+            <div class="brand-icon">
+                <i class="ph ph-lightning" style="color:#fff; font-size:1.1rem;"></i>
+            </div>
+            <span class="brand-text">AURA</span>
+        </div>
+
+        <div class="search-bar">
+            <i class="ph ph-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search products, brands...">
+        </div>
+
+        <div class="nav-actions">
+            <button id="cartBtn" class="icon-btn" title="Cart">
+                <i class="ph ph-shopping-bag"></i>
+                <span id="cartCount" class="badge">0</span>
+            </button>
+            <button id="ordersBtn" class="icon-btn" style="display: none;" title="Order History">
+                <i class="ph ph-receipt"></i>
+            </button>
+            <button id="adminBtn" class="icon-btn" style="display: none;" title="Admin Panel">
+                <i class="ph ph-gear-six"></i>
+            </button>
+            <button id="authBtn" class="icon-btn" title="Login">
+                <i class="ph ph-user"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-eyebrow">
+                <i class="ph ph-sparkle"></i>
+                New Arrivals — Summer 2026
+            </div>
+            <h1>Shop the Future,<br>Own the Best</h1>
+            <p>Curated premium products across audio, tech, gaming, and lifestyle — designed to elevate every moment.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">500+</span>
+                    <span class="stat-label">Products</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">50K+</span>
+                    <span class="stat-label">Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">4.9★</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters -->
+        <section class="filters">
+            <div class="filter-group">
+                <button class="filter-btn active" data-category="">
+                    <i class="ph ph-squares-four"></i> All
+                </button>
+                <button class="filter-btn" data-category="Headphones">
+                    <i class="ph ph-headphones"></i> Headphones
+                </button>
+                <button class="filter-btn" data-category="Speakers">
+                    <i class="ph ph-speaker-high"></i> Speakers
+                </button>
+                <button class="filter-btn" data-category="Gaming">
+                    <i class="ph ph-game-controller"></i> Gaming
+                </button>
+                <button class="filter-btn" data-category="Wearables">
+                    <i class="ph ph-watch"></i> Wearables
+                </button>
+                <button class="filter-btn" data-category="Accessories">
+                    <i class="ph ph-lightning"></i> Accessories
+                </button>
+            </div>
+        </section>
+
+        <!-- Product Grid -->
+        <section id="productsGrid" class="product-grid">
+            <div class="loading-spinner"></div>
+        </section>
+    </main>
+
+    <!-- ======================== MODALS ======================== -->
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content glass-dark">
+            <button class="close-modal">&#x2715;</button>
+            <div class="modal-header">
+                <div class="modal-title">Welcome Back</div>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="ph ph-sign-in"></i> Login
+                </button>
+                <p id="loginError" class="error-msg"></p>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form">
+                <div class="input-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="ph ph-user-plus"></i> Create Account
+                </button>
+                <p id="signupError" class="error-msg"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="ph ph-shopping-bag" style="margin-right:0.5rem;"></i>Your Cart</h2>
+            <button id="closeCart" class="icon-btn"><i class="ph ph-x"></i></button>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <p class="empty-cart">
+                <i class="ph ph-shopping-bag-open"></i>
+                Your cart is empty
+            </p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotalAmount">$0.00</span>
+            </div>
+            <button id="checkoutBtn" class="btn btn-primary w-100" disabled>
+                <i class="ph ph-lock"></i> Checkout
+            </button>
+            <p id="checkoutMessage" class="checkout-msg"></p>
+        </div>
+    </div>
+
+    <!-- Stripe Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content glass-dark">
+            <button class="close-modal">&#x2715;</button>
+            <div class="modal-header">
+                <div class="modal-title">Complete Payment</div>
+            </div>
+
+            <!-- Test card hint -->
+            <div style="
+                background: rgba(124,58,237,0.08);
+                border: 1px solid rgba(124,58,237,0.25);
+                border-radius: 10px;
+                padding: 0.75rem 1rem;
+                margin-bottom: 1.25rem;
+                font-size: 0.8rem;
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            ">
+                <i class="ph ph-info" style="color:#a78bfa;font-size:1rem;flex-shrink:0;"></i>
+                <span>Test card: <strong style="color:#c4b5fd;">4242 4242 4242 4242</strong> &nbsp;·&nbsp; Any future date &nbsp;·&nbsp; Any 3 digits</span>
+            </div>
+
+            <form id="paymentForm">
+                <div id="paymentElement">
+                    <!-- Stripe Elements will be inserted here -->
+                </div>
+                <button type="submit" id="submitPaymentBtn" class="btn btn-primary w-100" style="margin-top: 1.25rem; padding: 0.9rem; font-size: 0.95rem;">
+                    <i class="ph ph-lock-key"></i> Pay Now
+                </button>
+                <div id="paymentError" class="error-msg"></div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Orders Modal -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content glass-dark" style="max-width: 500px; max-height: 80vh; display: flex; flex-direction: column;">
+            <button class="close-modal">&#x2715;</button>
+            <div class="modal-header">
+                <div class="modal-title">Order History</div>
+            </div>
+            <div id="ordersList" style="overflow-y: auto; flex: 1; padding-right: 0.5rem;">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal admin-modal">
+        <div class="modal-content glass-dark admin-panel">
+            <button class="close-modal">&#x2715;</button>
+            <h2 class="admin-title">
+                <i class="ph ph-shield-check"></i> Admin Panel
+            </h2>
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-admin-tab="products">
+                    <i class="ph ph-package"></i> Products
+                </button>
+                <button class="admin-tab" data-admin-tab="orders">
+                    <i class="ph ph-receipt"></i> All Orders
+                </button>
+                <button class="admin-tab" data-admin-tab="lowstock">
+                    <i class="ph ph-warning"></i> Low Stock
+                </button>
+            </div>
+
+            <!-- Products Tab -->
+            <div id="adminProductsTab" class="admin-tab-content active">
+                <div class="admin-toolbar">
+                    <h3>Product Catalog</h3>
+                    <button id="addProductBtn" class="btn btn-primary btn-sm">
+                        <i class="ph ph-plus"></i> Add Product
+                    </button>
+                </div>
+                <div id="adminProductsList" class="admin-list">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+
+            <!-- Product Form (Create/Edit) -->
+            <div id="adminProductForm" class="admin-tab-content">
+                <div class="admin-toolbar">
+                    <h3 id="productFormTitle">Add New Product</h3>
+                    <button id="cancelProductForm" class="btn btn-ghost btn-sm">
+                        <i class="ph ph-arrow-left"></i> Back
+                    </button>
+                </div>
+                <form id="productForm" class="admin-form">
+                    <input type="hidden" id="productFormId">
+                    <div class="input-group">
+                        <label for="productFormName">Product Name *</label>
+                        <input type="text" id="productFormName" required placeholder="e.g. Aura Pro Headphones">
+                    </div>
+                    <div class="input-group">
+                        <label for="productFormDescription">Description</label>
+                        <textarea id="productFormDescription" rows="3" placeholder="Product description..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="productFormPrice">Price ($) *</label>
+                            <input type="number" id="productFormPrice" step="0.01" min="0" required placeholder="29.99">
+                        </div>
+                        <div class="input-group">
+                            <label for="productFormStock">Stock *</label>
+                            <input type="number" id="productFormStock" min="0" required placeholder="50">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="productFormCategory">Category</label>
+                            <input type="text" id="productFormCategory" placeholder="e.g. Headphones">
+                        </div>
+                        <div class="input-group">
+                            <label for="productFormImage">Image URL</label>
+                            <input type="url" id="productFormImage" placeholder="https://...">
+                        </div>
+                    </div>
+                    <button type="submit" id="productFormSubmit" class="btn btn-primary w-100">Create Product</button>
+                    <p id="productFormError" class="error-msg"></p>
+                </form>
+            </div>
+
+            <!-- Orders Tab -->
+            <div id="adminOrdersTab" class="admin-tab-content">
+                <h3 style="margin-bottom:1rem;">All Orders</h3>
+                <div id="adminOrdersList" class="admin-list">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+
+            <!-- Low Stock Tab -->
+            <div id="adminLowStockTab" class="admin-tab-content">
+                <h3 style="margin-bottom:1rem;">Low Stock Alert <span class="text-secondary">(stock ≤ 5)</span></h3>
+                <div id="adminLowStockList" class="admin-list">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="brand-text">AURA</span>
+                <p>Premium products curated for those who demand the best. Elevate every moment.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li>Headphones</li>
+                    <li>Speakers</li>
+                    <li>Gaming</li>
+                    <li>Wearables</li>
+                    <li>Accessories</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li>Contact Us</li>
+                    <li>Returns</li>
+                    <li>Shipping Info</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-links">
+                <span>© 2026 Aura Store</span>
+                <span class="footer-sep">·</span>
+                <span>Built with Flask & Stripe</span>
+            </div>
+            <div class="footer-links">
+                <span>All rights reserved</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('mainNavbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
