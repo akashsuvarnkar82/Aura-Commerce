@@ -12,7 +12,7 @@ Project spec: https://roadmap.sh/projects/ecommerce-api
 |---|---|
 | ![Storefront](screenshots/1.JPG) | ![Product view](screenshots/2-p.JPG) |
 | ![Product detail](screenshots/3-p.JPG) | ![Login / Logout](screenshots/4-login-logout.JPG) |
-| ![Admin panel](screenshots/5-admin-panel.JPG) | ![Add product](screenshots/6-product-add.JPG) |
+| ![Admin panel](screenshots/5-admin-panel.JPG) | ![Add product](screenshots/6-prodcuct-add.JPG) |
 | ![Cart](screenshots/7-cart.JPG) | ![Stripe payment](screenshots/8-payment-gateway.JPG) |
 | ![Order history](screenshots/9-order-history.JPG) | |
 
